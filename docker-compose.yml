@@ -1,0 +1,27 @@
+version: "3.4"
+services:
+    web:
+        image: smartstoreofficial/smartstore
+        container_name: web
+        ports:
+            - "80:80"
+        restart: unless-stopped
+        depends_on:
+            - db
+        volumes:
+            - "C:/mount/smtenants/mysql:/app/App_Data/Tenants"
+    db:
+        image: mysql
+        container_name: mysql
+        environment:
+            MYSQL_DATABASE: smartstore
+            MYSQL_ROOT_PASSWORD: "Smartstore2022!"
+        ports:
+          - '3307:3306'
+        expose:
+          - '3306'
+        volumes:
+          - mysql:/var/lib/mysql
+
+volumes:
+  mysql:
