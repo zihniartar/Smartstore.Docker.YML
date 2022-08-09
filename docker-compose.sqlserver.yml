@@ -1,7 +1,14 @@
 services:
     web:
+        image: smartstoreofficial/smartstore
+        container_name: web
+        ports:
+            - "80:80"
+        restart: unless-stopped
+        depends_on:
+            - db
         volumes:
-            - "D:/mount/smtenants/sqlserver:/app/App_Data/Tenants"
+            - "C:/mount/smtenants/mysql:/app/App_Data/Tenants"
     db:
         image: "mcr.microsoft.com/mssql/server"
         container_name: sqlserver
@@ -16,7 +23,6 @@ services:
         volumes:
           - mssql_system:/var/opt/mssql/
           - mssql_user:/var/opt/sqlserver/
-
 volumes:
   mssql_system:
   mssql_user:
